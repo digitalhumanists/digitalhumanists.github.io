@@ -1,0 +1,287 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<title>Evaluating the benefits of a quality assurance framework</title>
+		<meta name="description" content="Presentation for CLARIN 2021 Conference">
+		<meta name="author" content="Anne Ferger">
+		<link rel="stylesheet" href="../reveal/dist/reset.css">
+		<link rel="stylesheet" href="../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../reveal/dist/theme/night.css">
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="../plugin/highlight/monokai.css">
+		<!-- Printing and PDF exports -->
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section data-background-color="#1e888aff">
+					<h3>Evaluating the benefits of a quality assurance framework</h3>
+					<p>
+						<small>Anne Ferger & Daniel Jettka | Paderborn University, Germany</small>
+					</p>
+					<p>
+						<small>Slides at <a href="https://digitalhumanists.github.io/CLARIN2021/"
+								>digitalhumanists.github.io/EADH2021</a></small>
+					</p>
+					<aside class="notes"> Notes </aside>
+				</section>
+				<section data-background-color="#1e888aff">
+					<section>
+						<p>We integrated a <b>quality assurance framework</b> into an existing
+								<b>research data creation</b> workflow. For this integration we
+							employed the <b>version control</b> system git. Using different
+								<b>automatically created outputs</b> we <b>evaluated the
+								benefits</b> those quality control measures had.</p>
+					</section>
+				</section>
+				<section data-background-color="#1e888aff">
+					<section>
+						<h3>Data creation workflow</h3>
+					</section>
+					<section>
+						<h4>How is the research data created?</h4>
+						<ul>
+							<li>our example case is linguistic transcriptions, annotations and
+								translations of Dolgan, Kamas, Evenki and Selkup created in the
+								project <a href="https://www.slm.uni-hamburg.de/inel.html"
+								>INEL</a></li>
+							<li>further information on the project <ul>
+									<li><a href="https://inel.corpora.uni-hamburg.de/portal/geo/"
+											>map</a> where the languages are or were spoken</li>
+									<li>in <a
+											href="https://inel.corpora.uni-hamburg.de/portal/community/"
+											>Russian</a></li>
+									<li><a href="https://www.slm.uni-hamburg.de/inel/kontakt.html"
+											>contact</a></li>
+								</ul>
+							</li>
+						</ul>
+					</section>
+					<section>
+						<h4>How is the research data created?</h4>
+						<ul>
+							<li>linguistic corpus creation with manual and automated workflows
+								combined (mainly using the software <a
+									href="https://archive.mpi.nl/tla/elan">ELAN</a>, <a
+									href="https://software.sil.org/fieldworks/">FLEx</a> and <a
+									href="https://exmaralda.org/en/">EXMARaLDA</a>)</li>
+							<li>created data consists of transcription files with annotations and
+								translations (xml), metadata files (xml) and audio or manuscript
+								files (binary)</li>
+							<li>using git as version control system to allow for collaborative work
+								on the corpora</li>
+						</ul>
+					</section>
+				</section>
+				<section data-background-color="#1e888aff">
+					<section>
+						<h3>Quality Assurance and Workflow Optimization</h3>
+					</section>
+					<section>
+						<h4>What is data quality in this case and how can it be assured?</h4>
+						<ul>
+							<li>in our case high data quality is scientifically robust data (e.g.
+								statistics and searches on the data are reliable)</li>
+							<li>manual creation leads to technical inconsistencies</li>
+							<li>transcriptions, translations, annotations and metadata are
+								inter-dependent, so inconsistencies can be checked or fixed
+								automatically</li>
+						</ul>
+						<p>➔ checks for and fixes of inconsistencies</p>
+					</section>
+					<section>
+						<h3>How can data quality assurance be integrated into the existing
+							workflows?</h3>
+						<ul>
+							<li>the checks and fixes tailored to the special use case of the
+								linguistic corpora were added to an extendable open source framework
+								called <a href="https://doi.org/10.5281/zenodo.4725655">corpus
+									services</a></li>
+							<li>the quality checks and fixes were integrated in the git routines, so
+								that no change of original workflow was needed</li>
+						</ul>
+					</section>
+					<section>
+						<ul>
+							<li>using recurring scripts selected checks and fixes are run on the
+								current (git) version of the corpus</li>
+							<li>the file changes and additionally created outputs are added to the
+								corpus using git</li>
+							<li>to minimize problems with this workflow, those checks were done at a
+								dedicated hour at night were everyone agreed to stop working on the
+								data (one hour was also fine for time differences)</li>
+							<li>The used scripts were also made available on <a
+									href="https://github.com/digitalhumanists/corpus-services/tree/develop/cubo"
+									>GitHub</a></li>
+						</ul>
+					</section>
+					<section>
+						<h3>Overview</h3>
+						<img data-src="images/CuboCurationflows.png" height="441" width="713" />
+					</section>
+				</section>
+				<section data-background-color="#1e888aff">
+					<section>
+						<h3>Checks & fixes</h3>
+					</section>
+					<section>
+						<div style="text-align: left; float: left;">
+							<p>Some types of Checks:</p>
+							<small>
+								<ul>
+									<li>File coverage - files in system = referenced files?</li>
+									<li>XML handling (validation)</li>
+									<li>Contextual string matching - multiple whitespaces or
+										linebreaks</li>
+									<li>Naming conventions - files, metadata, structural units</li>
+									<li>Structure and content of transcriptions, annotations, and
+										metadata - annotation tiers, schemas</li>
+								</ul>
+							</small>
+						</div>
+						<div style="text-align: right; float: right;">
+							<p>Some types of Fixes</p>
+							<small>
+								<ul>
+									<li>Synchronization of names - metadata / files</li>
+									<li>XML handling (indentation)</li>
+									<li>Synchronization of values - vocabularies / dictionaries /
+										Geo</li>
+									<li>Update of regular tasks - segmentation / pre-processing</li>
+									<li>Removal of superfluous info - auto-save, logs, empty
+										units</li>
+								</ul>
+							</small>
+						</div>
+						<div style="text-align: left; float: left;">
+							<p>
+								<small>Details: <a
+										href="https://github.com/digitalhumanists/corpus-services/blob/develop/doc/List_of_corpus_functions.md"
+										>List of corpus functions</a>
+								</small>
+							</p>
+						</div>
+					</section>
+					<section>
+						<h4>Overview of the current (curation) state of corpora - daily
+							auto-update</h4>
+						<img data-src="images/curationoverview.png" height="324" width="957" />
+						<p>
+							<small>
+								<a hrf="https://inel.corpora.uni-hamburg.de/curation/"
+									>inel.corpora.uni-hamburg.de/curation</a>
+							</small>
+						</p>
+					</section>
+					<section>
+						<h4>Reports etc.</h4>
+						<ol>
+							<li>Reports - assistance for manual curation tasks</li>
+							<li>Overviews - finding inconsistencies in structural infos and
+								metadata</li>
+							<li>Error lists - tool-specific curation routines (e.g. import in
+								EXMARaLDA Partitur Editor)</li>
+							<li>Log files - statistical information about developments in
+								curation</li>
+						</ol>
+						</br>
+						</br>
+						<p>Assistance for continuous “curation”</p>
+					</section>
+					<section>
+						<h4>How can the enhancements to the data quality assurance be measured and
+							evaluated?</h4>
+						<!-- TODO -->
+						<img data-src="images/evaluation.png" height="227" width="512" />
+					</section>
+				</section>
+				<section data-background-color="#1e888aff">
+					<section>
+						<h3>Further information and tools:</h3>
+						<ul>
+							<li>Simplified git solution: <a
+									href="https://github.com/digitalhumanists/lama">Lama</a></li>
+							<li>Quality checks and automatic fixes for linguistic corpora: <a
+									href="https://github.com/digitalhumanists/corpus-services"
+									>corpus services</a></li>
+							<li>Automatic git solution for corpus services: <a
+									href="https://github.com/digitalhumanists/corpus-services/tree/develop/cubo"
+									>cubo</a></li>
+							<li>See the <a
+									href="https://github.com/digitalhumanists/corpus-services/tree/develop/doc"
+									>documentation</a>
+							</li>
+							<li>
+								<a
+									href="https://github.com/digitalhumanists/corpus-services#contributing"
+									>Contribute</a> to the project </li>
+						</ul>
+					</section>
+				</section>
+				<section data-background-color="#1e888aff">
+					<h3>Corpus Data</h3>
+					<small>
+						<p>Brykina, Maria; Orlova, Svetlana; Wagner-Nagy, Beáta. 2020. INEL Selkup
+							Corpus. Version 1.0. Publication date 2020-06-30. Archived in Hamburger
+							Zentrum für Sprachkorpora. http://hdl.handle.net/11022/0000-0007-E1D5-A.
+							In: Wagner-Nagy, Beáta; Arkhipov, Alexandre; Ferger, Anne; Jettka,
+							Daniel; Lehmberg, Timm (eds.). The INEL corpora of indigenous Northern
+							Eurasian languages. </p>
+						<p>Däbritz, Chris Lasse; Kudryakova, Nina; Stapert, Eugénie. 2019. "INEL
+							Dolgan Corpus." Version 1.0. Publication date 2019-08-31.
+							http://hdl.handle.net/11022/0000-0007-CAE7-1. Archived in Hamburger
+							Zentrum für Sprachkorpora. In: Wagner-Nagy, Beáta; Arkhipov, Alexandre;
+							Ferger, Anne; Jettka, Daniel; Lehmberg, Timm (eds.). The INEL corpora of
+							indigenous Northern Eurasian languages. </p>
+						<p>Gusev, Valentin; Klooster, Tiina; Wagner-Nagy, Beáta. 2019. "INEL Kamas
+							Corpus." Version 1.0. Publication date 2019-12-15.
+							http://hdl.handle.net/11022/0000-0007-DA6E-9. Archived in Hamburger
+							Zentrum für Sprachkorpora. In: Wagner-Nagy, Beáta; Arkhipov, Alexandre;
+							Ferger, Anne; Jettka, Daniel; Lehmberg, Timm (eds.). The INEL corpora of
+							indigenous Northern Eurasian languages. </p>
+						<p>Also on <a
+								href="https://gitlab.rrz.uni-hamburg.de/inel-open-access/corpora"
+								>GitLab</a></p>
+					</small>
+				</section>
+				<!-- Contact -->
+				<section data-background-color="#1e888aff">
+					<section>
+						<h3>Contact</h3>
+						<p>https://github.com/digitalhumanists</p>
+						<div style="text-align: left; float: left;">
+							<p data-markdown>Anne Ferger</p>
+							<p data-markdown>anne.ferger@uni-paderborn.de</p>
+							<p data-markdown>https://twitter.com/anneferger1</p>
+							<!-- more Elements -->
+						</div>
+						<div style="text-align: right; float: right;">
+							<p data-markdown>Daniel Jettka</p>
+							<p data-markdown>daniel.jettka@uni-paderborn.de</p>
+							<p data-markdown>https://twitter.com/DJettka</p>
+							<!-- more Elements -->
+						</div>
+					</section>
+				</section>
+			</div>
+		</div>
+		<script src="../reveal/dist/reveal.js"></script>
+		<script src="../reveal/plugin/notes/notes.js"></script>
+		<script src="../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+            // More info about initialization & config:
+            // - https://revealjs.com/initialization/
+            // - https://revealjs.com/config/
+            Reveal.initialize({
+                hash: true,
+                slideNumber: true,
+                
+                // Learn about plugins: https://revealjs.com/plugins/
+                plugins:[RevealMarkdown, RevealHighlight, RevealNotes]
+            });</script>
+	</body>
+</html>
